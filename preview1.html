@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rastreamento de Pedido - Bemol</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #0074d9;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        header img {
+            max-height: 70px; /* Aumentei a altura da logo */
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            background-color: #0074d9;
+            color: white;
+            padding: 10px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        .status, .details, .map, .payment, .tracking, .reschedule {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #0074d9;
+        }
+        .order-status {
+            display: flex;
+            justify-content: space-around;
+            position: relative;
+        }
+        .order-status div {
+            text-align: center;
+            position: relative;
+        }
+        .order-status div span {
+            display: block;
+            margin-top: 10px;
+            background-color: #0074d9;
+            color: white;
+            padding: 5px;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            margin: auto;
+        }
+        .details ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .details ul li {
+            margin-bottom: 10px;
+        }
+        .map iframe {
+            width: 100%;
+            height: 300px;
+            border: 0;
+        }
+        .payment ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .payment ul li {
+            margin-bottom: 10px;
+        }
+        .tracking table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .tracking th, .tracking td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .tracking th {
+            background-color: #0074d9;
+            color: white;
+        }
+        .reschedule form {
+            display: flex;
+            flex-direction: column;
+        }
+        .reschedule label {
+            margin-bottom: 10px;
+        }
+        .reschedule input[type="date"], 
+        .reschedule input[type="text"] {
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .reschedule button {
+            padding: 15px;
+            background-color: #2EC585;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.5s ease;
+        }
+        .reschedule button:hover {
+            background-color: #2EC585;
+        }
+        @media (max-width: 768px) {
+            .order-status {
+                flex-direction: column;
+            }
+            .reschedule input[type="date"], 
+            .reschedule input[type="text"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://i.imgur.com/T3xgVTJ.png" alt="Bemol Logo">
+    </header>
+    <nav>
+        <span>Bemol</span>
+        <span>Meu Perfil</span>
+    </nav>
+    <div class="container">
+        <div class="status">
+            <h2>Status do Pedido</h2>
+            <div class="order-status">
+                <div data-status="1">
+                    <span>1</span>
+                    <p>Pedido Recebido</p>
+                </div>
+                <div data-status="2">
+                    <span>2</span>
+                    <p>Em Preparação</p>
+                </div>
+                <div data-status="3">
+                    <span>3</span>
+                    <p>Saiu para a Entrega</p>
+                </div>
+                <div data-status="4">
+                    <span>4</span>
+                    <p>Entregue</p>
+                </div>
+            </div>
+        </div>
+        <div class="reschedule">
+            <h2>Reagendamento de Entrega</h2>
+            <form id="reschedule-form">
+                <label for="new-date">Escolha uma nova data para entrega:</label>
+                <input type="date" id="new-date" name="new-date" required>
+                <label for="address-complement">Complemento de Endereço:</label>
+                <input type="text" id="address-complement" name="address-complement" placeholder="Apto, Bloco, etc.">
+                <button type="submit">Reagendar</button>
+            </form>
+        </div>
+        <div class="details">
+            <h2>Detalhes do Pedido</h2>
+            <ul>
+                <li><strong>Pedido Nº:</strong> 123456</li>
+                <li><strong>Data:</strong> 20/06/2024</li>
+                <li><strong>Total:</strong> R$ 1.151,00</li>
+                <li><strong>Itens:</strong>
+                    <ul>
+                        <li> Guarda-Roupa 4 Portas Kappesberg 2 Gavetas MDP Jacarandá P464 - R$ 752,00</li>
+                        <li> Mesa Para Computador Latcor GLBM1R - R$ 399,00</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="tracking">
+            <h2>Rastreamento</h2>
+            <table>
+                <tr>
+                    <th>Data</th>
+                    <th>Status</th>
+                    <th>Local</th>
+                </tr>
+                <tr>
+                    <td>20/06/2024</td>
+                    <td>Pedido Recebido</td>
+                    <td>Central Bemol</td>
+                </tr>
+                <tr>
+                    <td>21/06/2024</td>
+                    <td>Em Preparação</td>
+                    <td>Centro de Distribuição</td>
+                </tr>
+                <tr>
+                    <td>21/06/2024</td>
+                    <td>Saiu para a entrega</td>
+                    <td>Centro de Distribuição</td>
+                </tr>
+                <tr>
+                    <td>-----</td>
+                    <td>Entregue</td>
+                    <td>Local de destino</td>
+                </tr>
+            </table>
+        </div>
+        <div class="map">
+            <h2>Localização da Loja</h2>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345099214!2d144.9537363155046!3d-37.81720974202171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf0727b3c9a7a3d12!2sBemol!5e0!3m2!1sen!2sbr!4v1618316244370!5m2!1sen!2sbr" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const orderStatus = 2; // Exemplo: Status atual do pedido (1: Pedido Recebido, 2: Em Preparação, 3: Saiu para entrega, 4: Entregue)
+            const cart = document.getElementById('cart');
+            const statusDivs = document.querySelectorAll('.order-status div');
+
+            statusDivs.forEach(div => {
+                if (parseInt(div.getAttribute('data-status')) === orderStatus) {
+                    const leftPosition = div.offsetLeft + (div.offsetWidth / 2) - (cart.offsetWidth / 2);
+                    cart.style.left = `${leftPosition}px`;
+                }
+            });
+        });
+
+        // Adicionando funcionalidade de reagendamento
+        document.getElementById('reschedule-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const newDate = document.getElementById('new-date').value;
+            alert(`Nova data de entrega reagendada para: ${newDate}`);
+        });
+    </script>
+</body>
